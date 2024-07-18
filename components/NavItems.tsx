@@ -1,5 +1,5 @@
 "use client";
-import { PRODUCT_CATEGORIES } from "@/lib/data";
+import { PRODUCT_CATEGORIES } from "@/components/lib/data";
 import { useEffect, useRef, useState } from "react";
 import NavItem from "./NavItem";
 import { useOnClickOutside } from "@/hooks/use-on-click-outside";
