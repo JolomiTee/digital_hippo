@@ -78,6 +78,19 @@ const Cart = () => {
 									alt="Empty shopping cart"
 								/>
 							</div>
+							<p className="text-xl font-semibold">Your cart is empty</p>
+							<SheetTrigger asChild>
+								<Link
+									href="/products"
+									className={buttonVariants({
+										variant: "link",
+										size: "sm",
+										className: "text-sm text-muted-foreground",
+									})}
+								>
+									Add items to your cart to checkout
+								</Link>
+							</SheetTrigger>
 						</div>
 					</>
 				)}
