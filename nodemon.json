@@ -2,10 +2,10 @@
 	"watch": [
 		"server.ts",
 		".env",
-		"app/collections/**/*.ts",
-		"app/trpc/index.ts",
 		"app/get-payload.ts",
-		"app/payload.config.ts"
+		"app/payload.config.ts",
+		"lib/trpc/**/*.ts",
+		"lib/collections/**/*.ts"
 	],
 	"exec": "ts-node --project tsconfig.server.json app/server.ts -- -I",
 	"ext": "js ts",
