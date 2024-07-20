@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { getPayloadClient } from "../../app/get-payload";
 import { AuthCredentialValidator } from "../validators/account-credentials-validator";
 import { publicProcedure, router } from "./trpc";
@@ -30,5 +31,22 @@ export const authRouter = router({
 			});
 
 			return { success: true, sentToEmail: email };
+		}),
+
+	verifyEmail: publicProcedure
+		.input(z.object({ token: z.string() }))
+		.query(async ({ input }) => {
+			const { token } = input;
+
+			const pld = await getPayloadClient();
+
+			const isVerified = await pld.verifyEmail({
+				collection: "users",
+				token,
+			});
+
+			if (!isVerified) throw new TRPCError({ code: "UNAUTHORIZED" });
+
+			return { success: true };
 		}),
 });

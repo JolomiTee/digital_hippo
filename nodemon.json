@@ -3,7 +3,9 @@
 		"server.ts",
 		".env",
 		"app/collections/**/*.ts",
-		"app/trpc/index.ts"
+		"app/trpc/index.ts",
+		"app/get-payload.ts",
+		"app/payload.config.ts"
 	],
 	"exec": "ts-node --project tsconfig.server.json app/server.ts -- -I",
 	"ext": "js ts",

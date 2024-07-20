@@ -77,7 +77,7 @@ const page = () => {
 									/>
 								</div>
 
-								<Button>Sign up</Button>
+								<Button type="submit">Sign up</Button>
 							</div>
 						</form>
 					</div>
