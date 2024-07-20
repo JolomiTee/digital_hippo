@@ -1,10 +1,10 @@
 "use client";
 
-import { PRODUCT_CATEGORIES } from "@/components/lib/data";
+import { PRODUCT_CATEGORIES } from "@/lib/data";
 import { Button } from "./ui/button";
 import { ChevronDown } from "lucide-react";
-import { cn } from "@/components/lib/utils";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 type Category = (typeof PRODUCT_CATEGORIES)[number];

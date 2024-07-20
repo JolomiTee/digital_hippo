@@ -1,6 +1,6 @@
 "use client";
-import { PRODUCT_CATEGORIES } from "@/components/lib/data";
 import { useEffect, useRef, useState } from "react";
+import { PRODUCT_CATEGORIES } from "@/lib/data";
 import NavItem from "./NavItem";
 import { useOnClickOutside } from "@/hooks/use-on-click-outside";
 

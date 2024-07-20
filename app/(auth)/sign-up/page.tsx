@@ -1,7 +1,7 @@
 "use client";
 
 import { Icons } from "@/components/Icons";
-import { cn } from "@/components/lib/utils";
+import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,6 +14,7 @@ import {
 	AuthCredentialValidator,
 	TAuthCredentialsValidator,
 } from "@/lib/validators/account-credentials-validator";
+import { trpc } from "@/lib/trpc/client";
 
 const page = () => {
 	const {
@@ -23,6 +24,9 @@ const page = () => {
 	} = useForm<TAuthCredentialsValidator>({
 		resolver: zodResolver(AuthCredentialValidator),
 	});
+
+	const { data } = trpc.anyApiRoute.useQuery();
+	console.log(data);
 
 	const onSubmit = ({ email, password }: TAuthCredentialsValidator) => {
 		// SEND DATA TO SERVER
