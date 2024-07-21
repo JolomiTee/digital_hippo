@@ -10,10 +10,12 @@ import { webpackBundler } from "@payloadcms/bundler-webpack";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { slateEditor } from "@payloadcms/richtext-slate";
 import { buildConfig } from "payload/config";
+import { Products } from "../lib/collections/Products/Products";
+import { Media } from "../lib/collections/Media";
 
 export default buildConfig({
 	serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "",
-	collections: [Users],
+	collections: [Users, Products, Media],
 	routes: {
 		admin: "/sell",
 	},
