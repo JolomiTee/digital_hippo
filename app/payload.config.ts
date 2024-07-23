@@ -12,10 +12,12 @@ import { slateEditor } from "@payloadcms/richtext-slate";
 import { buildConfig } from "payload/config";
 import { Products } from "../lib/collections/Products/Products";
 import { Media } from "../lib/collections/Media";
+import { ProductFiles } from "../lib/collections/ProductFiles";
+import { Orders } from "../lib/collections/Orders";
 
 export default buildConfig({
 	serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "",
-	collections: [Users, Products, Media],
+	collections: [Users, Products, Media, ProductFiles, Orders],
 	routes: {
 		admin: "/sell",
 	},
