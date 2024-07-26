@@ -20,7 +20,7 @@ export const Media: CollectionConfig = {
 	hooks: {
 		beforeChange: [
 			({ req, data }) => {
-				return { ...DataTransfer, user: req.user.id }; // joining the user that created the product to the product image
+				return { ...data, user: req.user.id }; // joining the user that created the product to the product image
 			},
 		],
 	},

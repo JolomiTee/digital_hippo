@@ -8,6 +8,8 @@
 
 # testing
 /coverage
+/app/media
+/app/product_files
 
 # next.js
 /.next/
