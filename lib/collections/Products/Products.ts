@@ -93,9 +93,9 @@ export const Products: CollectionConfig = {
 			},
 		},
 		{
-			name: "productImages",
+			name: "images",
 			type: "array",
-			label: "Product Images",
+			label: "Product images",
 			minRows: 1,
 			maxRows: 4,
 			required: true,
@@ -104,7 +104,12 @@ export const Products: CollectionConfig = {
 				plural: "Images",
 			},
 			fields: [
-				{ name: "image", type: "upload", relationTo: "media", required: true },
+				{
+					name: "image",
+					type: "upload",
+					relationTo: "media",
+					required: true,
+				},
 			],
 		},
 	],
