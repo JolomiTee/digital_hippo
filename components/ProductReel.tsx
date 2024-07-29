@@ -31,7 +31,8 @@ const ProductReel = (props: ProductReelProps) => {
 
 	const products = queryResults?.pages.flatMap((page) => page.items);
 
-	let map: (Product | null)[] = [];
+   let map: (Product | null)[] = [];
+
 	if (products && products.length) {
 		map = products;
 	} else if (isLoading) {
