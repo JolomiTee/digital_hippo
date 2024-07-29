@@ -1,7 +1,9 @@
 import { getPayloadClient } from "@/app/get-payload";
 import { Product } from "@/app/payload-types";
+import AddToCartButton from "@/components/AddToCartButton";
 import ImageSlider from "@/components/ImageSlider";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import ProductReel from "@/components/ProductReel";
 import { PRODUCT_CATEGORIES } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import { Check, Shield } from "lucide-react";
@@ -126,7 +128,7 @@ const Page = async ({ params }: PageProps) => {
 					<div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
 						<div>
 							<div className="mt-10">
-								{/* <AddToCartButton product={product} /> */}
+								<AddToCartButton product={product} />
 							</div>
 							<div className="mt-6 text-center">
 								<div className="group inline-flex text-sm text-medium">
@@ -143,6 +145,13 @@ const Page = async ({ params }: PageProps) => {
 					</div>
 				</div>
 			</div>
+
+			<ProductReel
+				href="/products"
+				query={{ category: product.category, limit: 4 }}
+				title={`Similar ${label}`}
+				subtitle={`Browse similar high quality ${label} just like '${product.name}'`}
+			/>
 		</MaxWidthWrapper>
 	);
 };
