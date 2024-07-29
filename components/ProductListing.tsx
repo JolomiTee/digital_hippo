@@ -1,3 +1,5 @@
+"use client";
+
 import { Product } from "@/app/payload-types";
 import { useEffect, useState } from "react";
 
@@ -43,7 +45,7 @@ const ProductListing = ({ product, index }: ProductListingProps) => {
 		({ value }) => value === product.category
 	)?.label;
 
-	const validUrls = product.productImages
+	const validUrls = product.images
 		.map(({ image }) => (typeof image === "string" ? image : image.url))
 		.filter(Boolean) as string[];
 

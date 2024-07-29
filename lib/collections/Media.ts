@@ -1,5 +1,6 @@
 import { User } from "../../app/payload-types";
 import { Access, CollectionConfig } from "payload/types";
+
 const isAdminOrHasAccessToImages =
 	(): Access =>
 	async ({ req }) => {
@@ -26,9 +27,9 @@ export const Media: CollectionConfig = {
 	},
 	access: {
 		read: async ({ req }) => {
-			const referrer = req.headers.referrer;
+			const referer = req.headers.referer;
 
-			if (!req.user || !referrer?.includes("sell")) {
+			if (!req.user || !referer?.includes("sell")) {
 				return true;
 			}
 
@@ -37,7 +38,6 @@ export const Media: CollectionConfig = {
 		delete: isAdminOrHasAccessToImages(),
 		update: isAdminOrHasAccessToImages(),
 	},
-
 	admin: {
 		hidden: ({ user }) => user.role !== "admin",
 	},
@@ -53,7 +53,7 @@ export const Media: CollectionConfig = {
 			},
 			{
 				name: "card",
-				width: 4768,
+				width: 768,
 				height: 1024,
 				position: "centre",
 			},

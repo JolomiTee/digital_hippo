@@ -53,7 +53,7 @@ export interface Product {
   approvedForSale?: ('pending' | 'approved' | 'denied') | null;
   priceId?: string | null;
   stripeId?: string | null;
-  productImages: {
+  images: {
     image: string | Media;
     id?: string | null;
   }[];

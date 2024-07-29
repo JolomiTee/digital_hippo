@@ -35,12 +35,12 @@ const yourOwnAndPurchased: Access = async ({ req }) => {
 		},
 	});
 
-	const purchasedProductFields = orders
+	const purchasedProductFileIds = orders
 		.map((order) => {
 			return order.products.map((product) => {
 				if (typeof product === "string")
 					return req.payload.logger.error(
-						"Insufficient search depth to find purchased file IDs"
+						"Search depth not sufficient to find purchased file IDs"
 					);
 
 				return typeof product.product_files === "string"
@@ -53,7 +53,7 @@ const yourOwnAndPurchased: Access = async ({ req }) => {
 
 	return {
 		id: {
-			in: [...ownProductFileIds, ...purchasedProductFields],
+			in: [...ownProductFileIds, ...purchasedProductFileIds],
 		},
 	};
 };
@@ -62,6 +62,9 @@ export const ProductFiles: CollectionConfig = {
 	slug: "product_files",
 	admin: {
 		hidden: ({ user }) => user.role !== "admin",
+	},
+	hooks: {
+		beforeChange: [addUser],
 	},
 	access: {
 		read: yourOwnAndPurchased,
@@ -85,7 +88,4 @@ export const ProductFiles: CollectionConfig = {
 			required: true,
 		},
 	],
-	hooks: {
-		beforeChange: [addUser],
-	},
 };
