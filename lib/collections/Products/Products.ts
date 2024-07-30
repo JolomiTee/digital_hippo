@@ -1,5 +1,14 @@
+import { Product, ProductFile } from "../../../app/payload-types";
 import { PRODUCT_CATEGORIES } from "../../../lib/data";
+import { stripe } from "../../../lib/stripe";
+import { BeforeChangeHook } from "payload/dist/collections/config/types";
 import { CollectionConfig } from "payload/types";
+
+const addUser: BeforeChangeHook<ProductFile> = async ({ req, data }) => {
+	const user = req.user;
+
+	return { ...data, user: user.id };
+};
 
 export const Products: CollectionConfig = {
 	slug: "products",
@@ -7,6 +16,47 @@ export const Products: CollectionConfig = {
 		useAsTitle: "name",
 	},
 	access: {},
+	hooks: {
+		beforeChange: [
+			addUser,
+			async (args) => {
+				if (args.operation === "create") {
+					const data = args.data as Product;
+
+					const createdProduct = await stripe.products.create({
+						name: data.name,
+						default_price_data: {
+							currency: "USD",
+							unit_amount: Math.round(data.price * 100),
+						},
+					});
+
+					const updated: Product = {
+						...data,
+						stripeId: createdProduct.id,
+						priceId: createdProduct.default_price as string,
+					};
+
+					return updated;
+				} else if (args.operation === "update") {
+					const data = args.data as Product;
+
+					const updatedProduct = await stripe.products.update(data.stripeId!, {
+						name: data.name,
+						default_price: data.priceId!,
+					});
+
+					const updated: Product = {
+						...data,
+						stripeId: updatedProduct.id,
+						priceId: updatedProduct.default_price as string,
+					};
+
+					return updated;
+				}
+			},
+		],
+	},
 	fields: [
 		{
 			name: "user",
@@ -27,11 +77,11 @@ export const Products: CollectionConfig = {
 		{
 			name: "description",
 			type: "textarea",
-			label: "Product Details",
+			label: "Product details",
 		},
 		{
 			name: "price",
-			label: "Price in NGN",
+			label: "Price in USD",
 			min: 0,
 			max: 1000,
 			type: "number",
@@ -46,7 +96,7 @@ export const Products: CollectionConfig = {
 		},
 		{
 			name: "product_files",
-			label: "Product files(s)",
+			label: "Product file(s)",
 			type: "relationship",
 			required: true,
 			relationTo: "product_files",
@@ -63,9 +113,18 @@ export const Products: CollectionConfig = {
 				update: ({ req }) => req.user.role === "admin",
 			},
 			options: [
-				{ label: "Pending Verification", value: "pending" },
-				{ label: "Approved", value: "approved" },
-				{ label: "Denied", value: "denied" },
+				{
+					label: "Pending verification",
+					value: "pending",
+				},
+				{
+					label: "Approved",
+					value: "approved",
+				},
+				{
+					label: "Denied",
+					value: "denied",
+				},
 			],
 		},
 		{
