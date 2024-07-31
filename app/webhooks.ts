@@ -1,13 +1,13 @@
 import express from "express";
 import { Resend } from "resend";
 import type Stripe from "stripe";
-import { getPayloadClient } from "../app/get-payload";
-import { Product } from "../app/payload-types";
-import { WebhookRequest } from "../app/server";
+import { getPayloadClient } from "./get-payload";
+import { Product } from "./payload-types";
+import { WebhookRequest } from "./server";
 import { ReceiptEmailHtml } from "../components/emails/RecieptEmail";
-import { stripe } from "./stripe";
+import { stripe } from "../lib/stripe";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(`${process.env.RESEND_API_KEY}`);
 
 export const stripeWebhookHandler = async (
 	req: express.Request,

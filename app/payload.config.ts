@@ -1,10 +1,5 @@
 import dotenv from "dotenv";
 import path from "path";
-
-dotenv.config({
-	path: path.resolve(__dirname, "../.env"),
-});
-
 import { Users } from "../lib/collections/Users";
 import { webpackBundler } from "@payloadcms/bundler-webpack";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
@@ -14,6 +9,10 @@ import { Products } from "../lib/collections/Products/Products";
 import { Media } from "../lib/collections/Media";
 import { ProductFiles } from "../lib/collections/ProductFiles";
 import { Orders } from "../lib/collections/Orders";
+
+dotenv.config({
+	path: path.resolve(__dirname, "../.env"),
+});
 
 export default buildConfig({
 	serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "",
@@ -35,7 +34,7 @@ export default buildConfig({
 	},
 	editor: slateEditor({}),
 	db: mongooseAdapter({
-		url: process.env.MONGDB_URL!,
+		url: process.env.MONGODB_URL!.toString(),
 	}),
 	typescript: {
 		outputFile: path.resolve(__dirname, "payload-types.ts"),
