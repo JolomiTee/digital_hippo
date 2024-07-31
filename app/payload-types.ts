@@ -173,6 +173,6 @@ export interface PayloadMigration {
 
 
 declare module "payload" {
-	//@ts-expect-error
+	// @ts-ignore
 	export interface GeneratedTypes extends Config {}
 }
