@@ -8,6 +8,11 @@ const nextConfig = {
 				port: "3000",
 				pathname: "**",
 			},
+			{
+				protocol: "https",
+				hostname: "digital-hippo-pearl.vercel.app",
+				pathname: "**",
+			},
 		],
 	},
 };
