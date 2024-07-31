@@ -6,7 +6,7 @@ import { appRouter } from "../lib/trpc/index";
 import { inferAsyncReturnType } from "@trpc/server";
 import bodyParser from "body-parser";
 import { IncomingMessage } from "http";
-import { stripeWebHookHandler } from "@/lib/webhooks";
+import { stripeWebHookHandler } from "../lib/webhooks";
 import nextBuild from "next/dist/build";
 import path from "path";
 import { PayloadRequest } from "payload/types";
