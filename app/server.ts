@@ -6,7 +6,7 @@ import { appRouter } from "../lib/trpc/index";
 import { inferAsyncReturnType } from "@trpc/server";
 import bodyParser from "body-parser";
 import { IncomingMessage } from "http";
-import { stripeWebHookHandler } from "../lib/webhooks";
+import { stripeWebhookHandler } from "../lib/webhooks";
 import nextBuild from "next/dist/build";
 import path from "path";
 import { PayloadRequest } from "payload/types";
@@ -33,7 +33,7 @@ const start = async () => {
 			req.rawBody = buffer;
 		},
 	});
-	app.post("/api/webhook/stripe", webhookMiddleware, stripeWebHookHandler);
+	app.post("/api/webhook/stripe", webhookMiddleware, stripeWebhookHandler);
 
 	const payload = await getPayloadClient({
 		initOptions: {

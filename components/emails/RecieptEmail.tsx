@@ -1,4 +1,4 @@
-import { formatPrice } from "@/lib/utils";
+import { formatPrice } from "../../lib/utils";
 import { Product } from "../../app/payload-types";
 import {
 	Body,

@@ -24,6 +24,8 @@ export interface Config {
  */
 export interface User {
   id: string;
+  products?: (string | Product)[] | null;
+  product_files?: (string | ProductFile)[] | null;
   role: 'admin' | 'user';
   updatedAt: string;
   createdAt: string;
@@ -170,6 +172,7 @@ export interface PayloadMigration {
 }
 
 
-declare module 'payload' {
-  export interface GeneratedTypes extends Config {}
+declare module "payload" {
+	//@ts-expect-error
+	export interface GeneratedTypes extends Config {}
 }

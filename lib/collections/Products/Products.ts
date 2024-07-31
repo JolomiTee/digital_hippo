@@ -1,4 +1,4 @@
-import { Product, ProductFile, User } from "../../../app/payload-types";
+import { Product, User } from "../../../app/payload-types";
 import { PRODUCT_CATEGORIES } from "../../../lib/data";
 import { stripe } from "../../../lib/stripe";
 import {
@@ -7,11 +7,12 @@ import {
 } from "payload/dist/collections/config/types";
 import { Access, CollectionConfig } from "payload/types";
 
-const addUser: BeforeChangeHook<ProductFile> = async ({ req, data }) => {
+const addUser: BeforeChangeHook<Product> = async ({ req, data }) => {
 	const user = req.user;
 
 	return { ...data, user: user.id };
 };
+
 const syncUser: AfterChangeHook<Product> = async ({ req, doc }) => {
 	const fullUser = await req.payload.findByID({
 		collection: "users",
@@ -83,6 +84,7 @@ export const Products: CollectionConfig = {
 		delete: isAdminOrHasAccess(),
 	},
 	hooks: {
+		afterChange: [syncUser],
 		beforeChange: [
 			addUser,
 			async (args) => {
@@ -122,7 +124,6 @@ export const Products: CollectionConfig = {
 				}
 			},
 		],
-		afterChange: [syncUser],
 	},
 	fields: [
 		{
