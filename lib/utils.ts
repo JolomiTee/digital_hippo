@@ -55,10 +55,10 @@ export function constructMetadata({
 			title,
 			description,
 			images: [image],
-			creator: "@joshtriedcoding",
+			creator: "@jolomitee",
 		},
 		icons,
-		metadataBase: new URL("https://digitalhippo.up.railway.app"),
+		metadataBase: new URL("https://digital-hippo-pearl.vercel.app/"),
 		...(noIndex && {
 			robots: {
 				index: false,
