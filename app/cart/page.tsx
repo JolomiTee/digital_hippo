@@ -11,7 +11,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const page = () => {
+const Page = () => {
 	const router = useRouter();
 	const { items, removeItem } = useCart();
 	const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -63,7 +63,9 @@ const page = () => {
 										alt="empty shopping cart hippo"
 									/>
 								</div>
-								<h3 className="font-semibold text-2xl">Your cart is empty</h3>
+								<h3 className="font-semibold text-2xl">
+									Your cart is empty
+								</h3>
 								<p className="text-muted-foreground text-center">
 									Nothing to show here yet
 								</p>
@@ -85,10 +87,14 @@ const page = () => {
 									const { image } = product.images[0];
 
 									return (
-										<li key={product.id} className="flex py-6 sm:py-10">
+										<li
+											key={product.id}
+											className="flex py-6 sm:py-10"
+										>
 											<div className="flex-shrink-0">
 												<div className="relative h-24 w-24">
-													{typeof image !== "string" && image.url ? (
+													{typeof image !== "string" &&
+													image.url ? (
 														<Image
 															fill
 															src={image.url}
@@ -128,10 +134,15 @@ const page = () => {
 														<div className="absolute right-0 top-0">
 															<Button
 																aria-label="remove this product"
-																onClick={() => removeItem(product.id)}
+																onClick={() =>
+																	removeItem(product.id)
+																}
 																variant="ghost"
 															>
-																<X className="h-5 w-5" aria-hidden="true" />
+																<X
+																	className="h-5 w-5"
+																	aria-hidden="true"
+																/>
 															</Button>
 														</div>
 													</div>
@@ -140,7 +151,9 @@ const page = () => {
 												<p className="mt-4 flex space-x-2 text-sm text-gray-700">
 													<Check className="h-5 w-5 flex-shrink-0 text-green-500" />
 
-													<span>Eligible for instant delivery</span>
+													<span>
+														Eligible for instant delivery
+													</span>
 												</p>
 											</div>
 										</li>
@@ -150,7 +163,9 @@ const page = () => {
 					</div>
 
 					<section className="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8">
-						<h2 className="text-lg font-medium text-gray-900">Order Summary</h2>
+						<h2 className="text-lg font-medium text-gray-900">
+							Order Summary
+						</h2>
 						<div className="mt-6 space-y-4">
 							<div className="flex items-center justify-between">
 								<p className="text-sm text-gray-600">Subtotal:</p>
@@ -210,4 +225,4 @@ const page = () => {
 	);
 };
 
-export default page;
+export default Page;

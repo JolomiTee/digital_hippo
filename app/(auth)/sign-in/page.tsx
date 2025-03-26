@@ -18,7 +18,7 @@ import {
 } from "@/lib/validators/account-credentials-validator";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const page = () => {
+const Page = () => {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 
@@ -171,4 +171,4 @@ const page = () => {
 	);
 };
 
-export default page;
+export default Page;

@@ -19,7 +19,7 @@ import { trpc } from "@/lib/trpc/client";
 import { ZodError } from "zod";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const Page = () => {
 	const {
 		register,
 		handleSubmit,
@@ -28,30 +28,30 @@ const page = () => {
 		resolver: zodResolver(AuthCredentialValidator),
 	});
 
-   const router = useRouter();
+	const router = useRouter();
 
-		const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({
-			onError: (err) => {
-				if (err.data?.code === "CONFLICT") {
-					toast.error("This email is already in use, Sign in instead?");
+	const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({
+		onError: (err) => {
+			if (err.data?.code === "CONFLICT") {
+				toast.error("This email is already in use, Sign in instead?");
 
-					return;
-				}
+				return;
+			}
 
-				if (err instanceof ZodError) {
-					toast.error(err.issues[0].message);
+			if (err instanceof ZodError) {
+				toast.error(err.issues[0].message);
 
-					return;
-				}
+				return;
+			}
 
-				toast.error("Something went wrong, Please try again.");
-			},
+			toast.error("Something went wrong, Please try again.");
+		},
 
-			onSuccess: ({ sentToEmail }) => {
-				toast.success(`Verication email sent to ${sentToEmail}`);
-				router.push("/verify-email?to=" + sentToEmail);
-			},
-		});
+		onSuccess: ({ sentToEmail }) => {
+			toast.success(`Verication email sent to ${sentToEmail}`);
+			router.push("/verify-email?to=" + sentToEmail);
+		},
+	});
 
 	const onSubmit = ({ email, password }: TAuthCredentialsValidator) => {
 		// SEND DATA TO SERVER
@@ -123,4 +123,4 @@ const page = () => {
 	);
 };
 
-export default page;
+export default Page;
