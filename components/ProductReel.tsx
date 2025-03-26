@@ -29,9 +29,27 @@ const ProductReel = (props: ProductReelProps) => {
 			}
 		);
 
-	const products = queryResults?.pages.flatMap((page) => page.items);
+	// Explicitly typing the products with Product type cuz it doesnt work with just passing the product to map
+	const products: Product[] =
+		queryResults?.pages.flatMap((page) =>
+			page.items.map((item: any) => ({
+				id: item.id,
+				name: item.name,
+				price: item.price,
+				category: item.category,
+				product_files: item.product_files,
+				images: item.images,
+				user: item.user ?? null,
+				description: item.description ?? null,
+				approvedForSale: item.approvedForSale ?? null,
+				priceId: item.priceId ?? null,
+				stripeId: item.stripeId ?? null,
+				updatedAt: item.updatedAt,
+				createdAt: item.createdAt,
+			}))
+		) || [];
 
-   let map: (Product | null)[] = [];
+	let map: (Product | null)[] = [];
 
 	if (products && products.length) {
 		map = products;
@@ -49,7 +67,9 @@ const ProductReel = (props: ProductReelProps) => {
 						</h1>
 					) : null}
 					{subtitle ? (
-						<p className="mt-2 text-sm text-muted-foreground">{subtitle}</p>
+						<p className="mt-2 text-sm text-muted-foreground">
+							{subtitle}
+						</p>
 					) : null}
 				</div>
 

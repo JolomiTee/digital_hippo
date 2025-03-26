@@ -36,7 +36,7 @@ const page = async ({ searchParams }: PageProps) => {
 	if (!order) return notFound();
 
 	const orderUserId =
-		typeof order.user === "string" ? order.user : order.user.id;
+		typeof order.user === "string" ? order.user : (order.user as User).id;
 
 	if (orderUserId !== user?.id) {
 		return redirect(`/sign-in?origin=thank-you?orderId=${order.id}`);
@@ -70,9 +70,9 @@ const page = async ({ searchParams }: PageProps) => {
 						</h1>
 						{order.isPaid ? (
 							<p className="mt-2 text-base text-muted-foreground">
-								Your order was processed and your assets are available to
-								download below. We&apos;ve sent your receipt and order details
-								to{" "}
+								Your order was processed and your assets are available
+								to download below. We&apos;ve sent your receipt and
+								order details to{" "}
 								{typeof order.user !== "string" ? (
 									<span className="font-medium text-gray-900">
 										{/* {order.user.email} */}
@@ -83,9 +83,9 @@ const page = async ({ searchParams }: PageProps) => {
 							</p>
 						) : (
 							<p className="mt-2 text-base text-muted-foreground">
-								We appreciate your order, and we&apos;re currently processing
-								it. So hang tight and we&apos;ll send a confirmation email very
-								soon!
+								We appreciate your order, and we&apos;re currently
+								processing it. So hang tight and we&apos;ll send a
+								confirmation email very soon!
 							</p>
 						)}
 
@@ -99,13 +99,17 @@ const page = async ({ searchParams }: PageProps) => {
 										({ value }) => value === product.category
 									)?.label;
 
-									const downloadUrl = (product.product_files as ProductFile)
-										.url as string;
+									const downloadUrl = (
+										product.product_files as ProductFile
+									).url as string;
 
 									const { image } = product.images[0];
 
 									return (
-										<li key={product.id} className="flex space-x-6 py-6">
+										<li
+											key={product.id}
+											className="flex space-x-6 py-6"
+										>
 											<div className="relative h-24 w-24">
 												{typeof image !== "string" && image.url ? (
 													<Image
@@ -119,7 +123,9 @@ const page = async ({ searchParams }: PageProps) => {
 
 											<div className="flex-auto flex flex-col justify-between">
 												<div className="space-y-1">
-													<h3 className="text-gray-900">{product.name}</h3>
+													<h3 className="text-gray-900">
+														{product.name}
+													</h3>
 
 													<p className="my-1">Category: {label}</p>
 												</div>
@@ -146,7 +152,9 @@ const page = async ({ searchParams }: PageProps) => {
 							<div className="space-y-6 border-t border-gray-200 pt-6 text-sm font-medium text-muted-foreground">
 								<div className="flex justify-between">
 									<p>Subtotal</p>
-									<p className="text-gray-900">{formatPrice(orderTotal)}</p>
+									<p className="text-gray-900">
+										{formatPrice(orderTotal)}
+									</p>
 								</div>
 
 								<div className="flex justify-between">
@@ -156,14 +164,16 @@ const page = async ({ searchParams }: PageProps) => {
 
 								<div className="flex items-center justify-between border-t border-gray-200 pt-6 text-gray-900">
 									<p className="text-base">Total</p>
-									<p className="text-base">{formatPrice(orderTotal + 1)}</p>
+									<p className="text-base">
+										{formatPrice(orderTotal + 1)}
+									</p>
 								</div>
 							</div>
 
 							<PaymentStatus
-								isPaid={order._isPaid}
+								isPaid={Boolean(order._isPaid)}
 								orderEmail={(order.user as User).email}
-								orderId={order.id}
+								orderId={String(order.id)}
 							/>
 
 							<div className="mt-16 border-t border-gray-200 py-6 text-right">
