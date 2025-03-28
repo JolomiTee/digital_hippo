@@ -20,7 +20,7 @@ const nextConfig = {
 			},
 			{
 				protocol: "https",
-				hostname: "main.ddulbh5p2g5sf.amplifyapp.com/",
+				hostname: "main.ddulbh5p2g5sf.amplifyapp.com",
 				pathname: "**",
 			},
 		],
