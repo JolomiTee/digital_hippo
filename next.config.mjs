@@ -18,6 +18,11 @@ const nextConfig = {
 				hostname: "digital-hippo.payloadcms.app",
 				pathname: "**",
 			},
+			{
+				protocol: "https",
+				hostname: "main.ddulbh5p2g5sf.amplifyapp.com/",
+				pathname: "**",
+			},
 		],
 	},
 };
