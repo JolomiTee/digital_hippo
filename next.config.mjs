@@ -13,6 +13,11 @@ const nextConfig = {
 				hostname: "digital-hippo-pearl.vercel.app",
 				pathname: "**",
 			},
+			{
+				protocol: "https",
+				hostname: "digital-hippo.payloadcms.app",
+				pathname: "**",
+			},
 		],
 	},
 };
